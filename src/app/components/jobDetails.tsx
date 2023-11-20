@@ -38,17 +38,17 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
           <div className="w-[17px] md:w-auto">
             <img src="/images/apply_icon.svg" alt="" className="" />
           </div>
-          {filteredJob.status === "open" ? (
+          {filteredJob?.status === "open" ? (
             <Link
               to={`/jobs/${filteredJob._id}`}
-              className="blue-button h-[40px] px-4 md:px-8 text-xs md:text-base"
+              className="blue-button h-[40px] px-4 md:px-8 text-xs md:text-base flex items-center"
             >
               Apply
             </Link>
           ) : (
             <button
               disabled
-              className="bg-[rgba(40,100,255,0.5)] h-[40px] px-4 md:px-8 text-xs md:text-base"
+              className="bg-[rgba(40,100,255,0.5)] text-[#fff] rounded-[0.5rem] h-[40px] px-4 md:px-8 text-xs md:text-base"
             >
               Apply
             </button>

@@ -13,26 +13,26 @@ const Jobs = () => {
   const [jobId, setJobId] = useState<any>("");
   const [filtered, setFiltered] = useState<any>([]);
 
-  const [search, setSearch] = useState<{title:string, category:string}>({
+  const [search, setSearch] = useState<{ title: string; category: string }>({
     title: "",
-    category: ""
+    category: "",
   });
 
   const handleSearch = (e: any) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setSearch({
       ...search,
-      [name]: value
-    })
-  }
-  const matchingResults = jobs.filter(
-    (item: any) =>
-      (item.title.toLowerCase().includes(search.title.toLowerCase()) ||
-      item.mode.toLowerCase().includes(search.category.toLowerCase()))
-  );
+      [name]: value,
+    });
+  };
+  const matchingResults = jobs.filter((item: any) => {
+    return (
+      item.title.toLowerCase().includes(search.title.toLowerCase()) &&
+      item.mode.toLowerCase().includes(search.category.toLowerCase())
+    );
+  });
   console.log(search);
-  console.log(matchingResults)
-
+  console.log(matchingResults);
 
   const getJobs = async () => {
     setLoading(true);
@@ -63,7 +63,7 @@ const Jobs = () => {
 
   return (
     <PageLayout>
-      <div className="md:pt-[60px] pb-[100px] px-4  xl:px-[92px]">
+      <div className="md:pt-[60px] pb-[100px] px-4  xl:px-[92px] min-h-[calc(100vh-120px)]">
         {/* Search */}
 
         {loading ? (
@@ -105,7 +105,7 @@ const Jobs = () => {
                         type="text"
                         className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-[190px] hidden md:block"
                         placeholder="Category"
-                        name="title"
+                        name="category"
                         value={search.category}
                         onChange={handleSearch}
                       />
@@ -118,9 +118,11 @@ const Jobs = () => {
                     Search
                   </button>
                 </div>
-                  {(search.title || search.category) ? <MapJobs jobs={matchingResults} jobId={getId} />
-               : <MapJobs jobs={jobs} jobId={getId} />
-                  }
+                {search.title || search.category ? (
+                  <MapJobs jobs={matchingResults} jobId={getId} />
+                ) : (
+                  <MapJobs jobs={jobs} jobId={getId} />
+                )}
               </div>
               <div className={`${jobId && "w-full"}`}>
                 {jobId && (
@@ -140,11 +142,11 @@ const Jobs = () => {
               </div>
             </div>
 
-            <div className="mx-auto text-center mt-14">
+            {/* <div className="mx-auto text-center mt-14">
               <button className="bg-[#fff] text-[#2864FF] hover:text-[#fff] hover:bg-[#2864FF] border-[1px] border-[#2864FF] rounded-[0.5rem] py-[10px] px-[40px] md-text transition-all ease-in-out ">
                 Show More jobs
               </button>
-            </div>
+            </div> */}
           </>
         )}
       </div>

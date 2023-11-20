@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from "react";
 import RecuiterLayout from "../../layout/recuiterLayout";
+import { ICreate } from "../../../interfaces/ICreateJob";
 
 const CreateJob = () => {
   const [step, setStep] = useState<number>(1);
+  const [createJob, setCreateJob] = useState<ICreate>({
+    title: "",
+    description: "",
+    responsibility: "",
+    requirements: "",
+    salary: "",
+    status: "",
+    mode: "",
+    interviewType: "",
+  });
 
-  useEffect(() => {}, [step]);
-
+  const handleCreateJob = (e: any) => {
+    const { name, value } = e.target;
+    setCreateJob({
+      ...createJob,
+      [name]: value
+    })
+  };
   const handleNext = () => {
-    setStep(step + 1);
+    if (step <= 3) {
+      setStep(step + 1);
+    }
   };
   return (
     <RecuiterLayout>
@@ -35,6 +53,8 @@ const CreateJob = () => {
                 type="text"
                 className="form-input  text-[#000] placeholder:text-[#A8ADAF]"
                 placeholder="e.g Senior software developer"
+                name="title"
+                value={createJob.title}
               />
             </div>
           ) : step === 2 ? (

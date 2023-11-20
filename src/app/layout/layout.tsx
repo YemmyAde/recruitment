@@ -86,7 +86,7 @@ const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           </ul>
           <div className="text-[18px] leading-[28px] md:sm-text flex gap-x-4 lg:gap-x-8 items-start md:items-center flex-col md:flex-row  gap-y-6 md:gap-y-0 mt-6 md:mt-0">
             <Link
-              to="#"
+              to="/jobs"
               className="bg-[#fff] md:text-[#2864FF] md:border-[1px] md:border-[#2864FF] rounded-[0.5rem] md:py-[5px] lg:py-[10px] md:px-[10px] lg:px-[30px]"
             >
               Apply for jobs
@@ -102,6 +102,12 @@ const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
       </div>
 
       {children}
+      <footer className="bg-[#000] text-[#fff] px-4  xl:px-[92px] py-8 font-lato">
+        <div className="flex py-5">
+          <p className=" text-base">JOBS</p>
+        </div>
+        <p className="">&#169;RecruitN</p>
+      </footer>
     </div>
   );
 };
