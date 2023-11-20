@@ -8,7 +8,6 @@ const MapJobs: React.FC<{
   view?: any;
 }> = ({ pageName, jobs, jobId }) => {
   const [view, setView] = useState<string>("");
-
   const sendId = (id: string) => {
     jobId(id);
   };
@@ -18,6 +17,8 @@ const MapJobs: React.FC<{
       setView(jobs[0]._id);
     }
   }, [jobs]);
+
+  
   return (
     <div
       className={` between-flex text-[#000] flex-col w-full ${
@@ -73,7 +74,7 @@ const MapJobs: React.FC<{
 
                     <div className="flex justify-between items-center">
                       <p className=" md-text md:lg-text font-semibold  text-[#2864FF] font-inter">
-                        {item.title}{" "}
+                        {item.title}
                         <span className="text-[#7D8488] text-sm font-normal pl-[10px] hidden md:inline">
                           {item.mode}
                         </span>

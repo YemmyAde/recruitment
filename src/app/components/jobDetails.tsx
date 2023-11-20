@@ -38,9 +38,21 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
           <div className="w-[17px] md:w-auto">
             <img src="/images/apply_icon.svg" alt="" className="" />
           </div>
-          <button className="blue-button h-[40px] px-4 md:px-8 text-xs md:text-base">
-            Apply
-          </button>
+          {filteredJob.status === "open" ? (
+            <Link
+              to={`/jobs/${filteredJob._id}`}
+              className="blue-button h-[40px] px-4 md:px-8 text-xs md:text-base"
+            >
+              Apply
+            </Link>
+          ) : (
+            <button
+              disabled
+              className="bg-[rgba(40,100,255,0.5)] h-[40px] px-4 md:px-8 text-xs md:text-base"
+            >
+              Apply
+            </button>
+          )}
         </div>
       </div>
 

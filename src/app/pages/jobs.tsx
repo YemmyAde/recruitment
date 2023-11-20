@@ -13,6 +13,27 @@ const Jobs = () => {
   const [jobId, setJobId] = useState<any>("");
   const [filtered, setFiltered] = useState<any>([]);
 
+  const [search, setSearch] = useState<{title:string, category:string}>({
+    title: "",
+    category: ""
+  });
+
+  const handleSearch = (e: any) => {
+    const {name, value} = e.target
+    setSearch({
+      ...search,
+      [name]: value
+    })
+  }
+  const matchingResults = jobs.filter(
+    (item: any) =>
+      (item.title.toLowerCase().includes(search.title.toLowerCase()) ||
+      item.mode.toLowerCase().includes(search.category.toLowerCase()))
+  );
+  console.log(search);
+  console.log(matchingResults)
+
+
   const getJobs = async () => {
     setLoading(true);
     try {
@@ -67,19 +88,26 @@ const Jobs = () => {
                     type="text"
                     className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-full"
                     placeholder="Search with Keyword or job title"
+                    name="title"
+                    value={search.title}
+                    onChange={handleSearch}
                   />
                   {!Boolean(jobId) && (
                     <>
-                      {" "}
-                      <input
+                      {/* <input
                         type="text"
                         className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-[190px]"
-                        placeholder="City or Country"
-                      />
+                          placeholder="City or Country"
+                          name="country"
+                          value={search.country}
+                      /> */}
                       <input
                         type="text"
                         className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-[190px] hidden md:block"
                         placeholder="Category"
+                        name="title"
+                        value={search.category}
+                        onChange={handleSearch}
                       />
                     </>
                   )}
@@ -90,7 +118,9 @@ const Jobs = () => {
                     Search
                   </button>
                 </div>
-                <MapJobs jobs={jobs} jobId={getId} />
+                  {(search.title || search.category) ? <MapJobs jobs={matchingResults} jobId={getId} />
+               : <MapJobs jobs={jobs} jobId={getId} />
+                  }
               </div>
               <div className={`${jobId && "w-full"}`}>
                 {jobId && (
