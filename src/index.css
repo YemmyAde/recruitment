@@ -2,3 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800&family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  outline: none;
+}
+
+.form-input {
+  @apply gap-4 p-4 border-[1px] rounded-[4px] w-full text-sm my-3 border-[#D4D6D7]
+}
+
+.input {
+  @apply shadow-[2px_2px_2px_2px_rgba(0,0,0,0.4)]
+}
+
+.apply-form-input {
+  @apply gap-4 p-4 rounded-[4px] w-full text-sm my-3 bg-[rgba(233,239,255,0.31)]
+}
+
+.settings-input {
+  @apply gap-4 px-2 py-4 rounded-[4px] w-full text-[1rem] mb-4 bg-[rgba(233,239,255,0.31)]
+}
+
+.sm-text {
+  @apply text-[14px] leading-[20px]
+}
+
+.md-text {
+  @apply text-[18px] leading-[28px]
+}
+
+.lg-text {
+  @apply md:text-[20px] md:leading-[28px]
+}
+
+.xl-text {
+  @apply text-[24px] leading-[28px]
+}
+
+.job-text {
+  @apply text-[24px] leading-[34px]
+}
+
+.h1-text {
+  @apply text-[28px] leading-[36px]
+}
+
+.blue-button {
+  @apply bg-[#2864FF] text-[#fff] rounded-[0.5rem]
+}
+
+.between-flex {
+  @apply flex justify-between items-center
+}
+
+.center-flex {
+  @apply flex justify-center items-center
+}
+
+.top-items-flex {
+  @apply flex justify-between items-start
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: space-between;
+}
+
+.left-half {
+  width: 60%;
+  /* Take up half of the container */
+  background-color: #fff;
+  /* Set background color for the left half */
+}
+
+.right-half {
+  width: 40%;
+  /* Take up half of the container */
+  background-image: url('../public/images/auth_img.svg');
+  /* Set background image for the right half */
+  background-size: cover;
+  /* Cover the entire background */
+  background-position: center;
+  align-items: end;
+  background-attachment: scroll;
+  min-height: 100vh;
+  /* Center the background image */
+}
+
+
+/* InputWithAnimatedLabel.css */
+/* .input-container {
+  position: relative;
+  margin-bottom: 20px;
+} */
+
+.label-focused {
+  position: absolute;
+  top: 5px;
+  /* Adjust the top position */
+  left: 10px;
+  color: #3498db;
+  font-size: 12px;
+  /* Adjust the font size */
+  pointer-events: none;
+  transition: transform 0.2s ease-out, font-size 0.2s ease-out;
+  z-index: 4;
+  /* Include font-size in the transition */
+}
+/* 
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.focused input {
+  border-color: #3498db;
+} */
