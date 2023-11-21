@@ -54,7 +54,7 @@ const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <li className="flex items-center gap-4 md:hidden absolute right-0 -top-4">
               <button className="" onClick={toggleMenu}>
                 <img
-                  src="/images/hamburger.svg"
+                  src="/images/close.png"
                   alt=""
                   className=" md:hidden"
                 />

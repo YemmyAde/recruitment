@@ -19,7 +19,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
     >
       <div className="between-flex mb-10">
         <div className="">
-          <h3 className="text-lg md:lg-text font-bold  text-[#2864FF] font-roboto text-[1.53rem] leading-6 md:leading-[2.25rem]">
+          <h3 className="text-lg md:lg-text font-bold  text-[#2864FF] font-roboto text-[1.53rem] leading-6 md:leading-[2.25rem] firstWord">
             {/* Software Engineer{" "} */}
             {filteredJob && filteredJob?.title}
           </h3>
@@ -40,7 +40,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
           </div>
           {filteredJob?.status === "open" ? (
             <Link
-              to={`/jobs/${filteredJob._id}`}
+              to={`/apply/${filteredJob._id}`}
               className="blue-button h-[40px] px-4 md:px-8 text-xs md:text-base flex items-center"
             >
               Apply
@@ -67,7 +67,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
         <p
           className={` ${
             pageName === "singleJob" ? "md-text " : "sm-text"
-          } text-[#263238]   font-normal mt-2 font-lato text-justify `}
+          } text-[#263238]   font-normal mt-2 font-lato text-justify firstWord`}
         >
           {filteredJob && filteredJob.description}
         </p>
@@ -88,12 +88,12 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
         <ul
           className={` ${
             pageName === "singleJob" ? "job-text " : "sm-text"
-          } text-[#263238]  font-normal mt-2 font-lato text-justify list-disc pl-8 flex flex-col gap-4`}
+          } text-[#263238]  font-normal mt-2 font-lato text-justify list-disc pl-8 flex flex-col gap-4 `}
         >
           {filteredJob &&
             filteredJob.responsibility.split("\n").map((item: any) => {
               return (
-                <li className="" key={item}>
+                <li className="firstWord block" key={item}>
                   {item}
                 </li>
               );
@@ -121,7 +121,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
           {filteredJob &&
             filteredJob.requirements.split(",").map((item: any) => {
               return (
-                <li className="" key={item}>
+                <li className="firstWord block" key={item}>
                   {item}
                 </li>
               );
@@ -149,15 +149,29 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
       </div>
 
       <div className="mx-auto text-center mb-10">
-        <button
-          className={` ${
-            pageName === "singleJob"
-              ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
-              : "px-8  h-[40px]"
-          } blue-button  `}
-        >
-          Apply
-        </button>
+        {filteredJob?.status === "open" ? (
+          <Link
+            to={`/apply/${filteredJob._id}`}
+            className={` ${
+              pageName === "singleJob"
+                ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
+                : "px-8  h-[40px]"
+            } blue-button  `}
+          >
+            Apply
+          </Link>
+        ) : (
+          <button
+            disabled
+            className={` ${
+              pageName === "singleJob"
+                ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
+                : "px-8  h-[40px]"
+            }   bg-[rgba(40,100,255,0.5)] text-[#fff] rounded-[0.5rem] `}
+          >
+            Apply
+          </button>
+        )}
       </div>
     </div>
   );

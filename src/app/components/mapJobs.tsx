@@ -33,7 +33,7 @@ const MapJobs: React.FC<{
               sendId(item._id);
               setView(item._id);
             }}
-            className={` bg-[#fff] rounded-[20px] py-8 pl-4  pr-8 flex gap-x-8 transition-all ease-in-out text-left w-full ${
+            className={` bg-[#fff] rounded-[20px] py-8 pl-4  pr-8 flex items-center gap-x-8 transition-all ease-in-out text-left w-full ${
               view === item._id
                 ? "border-[1px] border-[#2864FF] "
                 : "shadow-[2px_2px_24px_0_rgba(171,190,209,0.4)]"
@@ -41,11 +41,16 @@ const MapJobs: React.FC<{
           >
             {!view && (
               <div
-                className={`w-[166px] items-center justify-center ${
-                  pageName === "recruiterJobs" ? "hidden" : "hidden md:flex"
+                className={` ${
+                  pageName === "recruiterJobs" ? "hidden" : "hidden md:block"
                 } `}
               >
-                <img src={item.user.avatar.url} alt="" className="" />
+                <div className="w-[100px] h-[100px] bg-[#7d8488] rounded-full flex justify-center items-center">
+                  <p className="text-6xl font-bold font-lato text-[#000]  uppercase">
+                    {item.user.companyName[0]}
+                  </p>
+                </div>
+                {/* <img src={item.user.avatar.url} alt="" className="" /> */}
               </div>
             )}
 
@@ -64,7 +69,7 @@ const MapJobs: React.FC<{
 
                   <div className="w-full">
                     <div className="flex justify-between items-center">
-                      <p className="sm-text md:md-text mb-1 font-lato">
+                      <p className="sm-text md:md-text mb-1 font-lato firstWord">
                         {item.user.companyName}
                       </p>
                       <p className="text-xs rounded-[5px] text-[#2E7D31] bg-[#E9FFEF] py-2 px-4 md:hidden">
@@ -73,7 +78,7 @@ const MapJobs: React.FC<{
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <p className=" md-text md:lg-text font-semibold  text-[#2864FF] font-inter">
+                      <p className=" md-text md:lg-text font-semibold  text-[#2864FF] font-inter firstWord">
                         {item.title}
                         <span className="text-[#7D8488] text-sm font-normal pl-[10px] hidden md:inline">
                           {item.mode}
@@ -94,7 +99,7 @@ const MapJobs: React.FC<{
               <p
                 className={`${
                   view ? "w-[95%]" : "w-[85%]"
-                } text-[#515B60] sm-text  font-normal mt-4 md:mt-2  `}
+                } text-[#515B60] sm-text  font-normal mt-4 md:mt-2 firstWord `}
               >
                 {pageName === "recruiterJobs"
                   ? item.description.slice(0, 100)

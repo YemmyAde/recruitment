@@ -31,8 +31,6 @@ const Jobs = () => {
       item.mode.toLowerCase().includes(search.category.toLowerCase())
     );
   });
-  console.log(search);
-  console.log(matchingResults);
 
   const getJobs = async () => {
     setLoading(true);

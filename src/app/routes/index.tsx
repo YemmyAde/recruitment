@@ -24,7 +24,7 @@ export const AppRoute = () => {
       <Route path="/verify-user" element={<Verify />} />
       <Route path="/create-password" element={<CreatePassword />} />
       <Route path="/jobs" element={<Jobs />} />
-      <Route path="/apply" element={<Apply />} />
+      <Route path="/apply/:id" element={<Apply />} />
       <Route path="/jobs/:id" element={<CompaniesJob />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<RecruiterJobs />} />
