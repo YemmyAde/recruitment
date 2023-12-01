@@ -11,15 +11,31 @@ const Apply = () => {
   const [data, setData] = useState<any>();
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [applicationDetails, setApplicationDetails] = useState<any>();
+  const [url, setUrl] = useState<string>("");
 
   const [application, setApplication] = useState<IApply>({
     firstName: "",
     lastName: "",
     email: "",
     yearsOfExperience: undefined,
-    link: "",
+    resume: {
+      url: "",
+    },
   });
 
+  useEffect(() => {
+    if (url) {
+      setApplication({
+        ...application,
+        resume: {
+          url,
+        },
+      });
+    }
+  }, [url]);
+
+  console.log(application)
   const getData = async () => {
     try {
       const res = await getJob(id!);
@@ -53,10 +69,12 @@ const Apply = () => {
       getData();
     }
   }, [id]);
-
   return (
     <div className="font-roboto">
-      {success && <SuccessModal text="" text2="" text3="Jobs" link="/jobs" />}
+      {success && (
+        < SuccessModal img="/images/high-five.svg" text="Congratulation on succefully applying for this role" text2="
+        See more" text3="Jobs" link="/jobs" />
+      )}
       <div className="between-flex shadow-[0_16px_32px_0_rgba(171,190,209,0.6)] md:shadow-[0_16px_32px_0_rgba(171,190,209,0.3)] px-4  xl:px-[92px] pt-14 pb-12 bg-[#E9EFFF] md:bg-transparent gap-2">
         <div className="">
           <h3 className="text-lg md:text-[28px] md:leading-[36px] text-[#21271F] font-bold">
@@ -66,9 +84,7 @@ const Apply = () => {
             Thanks for your interest. Tell us aboout yourself!
           </p>
           <div className="flex items-center gap-3 mt-3">
-            {/* <div className="w-[20px] h-[20px] md:w-[39px] md:h-[39px]">
-              <img src="/images/company_logo.svg" alt="" className="" />
-            </div> */}
+          
             <p className="font-medium md:text-lg text-[#000] firstWord">
               {data?.job.user.companyName}
             </p>
@@ -88,16 +104,14 @@ const Apply = () => {
               !application.email ||
               !application.firstName ||
               !application.email ||
-              !application.link ||
+              !application.resume.url ||
               application.yearsOfExperience === null
             }
           >
             {loading ? "Submitting" : "Submit"}
-            
           </button>
         </div>
       </div>
-
       <div className="px-4  xl:px-[92px] py-12">
         {/* <div className="border-[1px] border-[#2864FF] rounded-[20px] px-[15px] md:px-[33px] py-3 md:py-6 flex justify-start gap-4 items-center flex-wrap sm:flex-nowrap">
           <div className="bg-[#424E3E] rounded-[5px]  w-[43px] h-[43px] hidden md:flex items-center justify-center ">
@@ -190,9 +204,9 @@ const Apply = () => {
                   placeholder="Resume Link"
                   className="text-[#A8ADAF] sm-text  apply-form-input w-full"
                   required
-                  name="link"
-                  value={application.link}
-                  onChange={handleChange}
+                  name="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
                 />
               </div>
               {/* <div className="">

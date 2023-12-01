@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RecuiterLayout from "../../layout/recuiterLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getSingleJob } from "../../services/jobs";
+import moment from "moment";
 
 const JobResult = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [job, setJob] = useState<any>();
+
+  useEffect(() => {
+    if (id) {
+      getJobs();
+    }
+  }, [id]);
+  const getJobs = async () => {
+    try {
+      const res = await getSingleJob(id!);
+      setJob(res?.data?.job);
+      console.log(res);
+    } catch (e) {
+      return e;
+    }
+  };
+  console.log(job?.applicants?.length)
+
   return (
     <RecuiterLayout>
       <div className="px-4  xl:px-[92px] pt-6 pb-12 bg-[#f7f6f7]">
         <button
-          // onClick={() => setJobId("")}
+          onClick={() => navigate(-1)}
           className="text-[#000] sm-text font-lato flex items-center gap-3 mt-4 mb-8"
         >
           <img src="/images/back_arrow.svg" alt="" className="" /> Back
@@ -18,7 +40,7 @@ const JobResult = () => {
             My Job Result
           </h2>
           <div className="text-right md:hidden">
-            <p className="text-4xl">6</p>
+            <p className="text-4xl">{job?.applicants?.length}</p>
             <p className=" text-base">Applied Candidate</p>
           </div>
         </div>
@@ -28,57 +50,53 @@ const JobResult = () => {
             <div className="">
               <div className="between-flex">
                 <div className="flex items-center gap-2">
-                  <img src="/images/company_logo.svg" alt="" className="w-5" />
-                  <p className="md-text mb-1 font-lato">Consulting Ltd</p>
+                  <p className="w-5 h-5 rounded-full bg-[]"></p>
+                  {/* <img src="/images/company_logo.svg" alt="" className="w-5" /> */}
+                  <p className="md-text mb-1 font-lato">{job?.user?.companyName}</p>
                 </div>
                 <p className="text-[9px] leading-[13px] font-lato rounded-[5px] text-[#2E7D31] bg-[#E9FFEF] py-2 px-4 md:px-8">
-                  Open
+                  {job?.status}
                 </p>
               </div>
               <div className="between-flex mt-2">
-                <p className=" text-base font-semibold  text-[#2864FF] font-roboto">
-                  Senior Software Engineer
+                <p className=" text-base font-semibold  text-[#2864FF] font-roboto firstWord">
+                  {job?.title}
                 </p>
                 <p className="text-[#7D8488] text-xs font-normal pl-[10px] font-lato">
-                  Remote
+                  {job?.mode}
                 </p>
               </div>
 
               <p className=" text-[#515B60] text-[0.75rem] leading-[1.0rem]  font-lato mt-2 ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                porta ipsum diam, nec efficitur urna ultricies eu. Nam ultrices
-                ante quis ipsum molestie gravida. Nam nec dui sodales, volutpat
-                risus quis, dictum velit. In vel tempor molestie.
+                {job?.description}
               </p>
               <div className="gap-y-2 gap-x-6 flex flex-wrap my-4">
-                <p
-                  className={` bg-[#E9EFFF] rounded-[5px] px-[1.875rem] py-2 text-[#7D8488] text-[0.65rem] leading-[1rem] `}
-                >
-                  Javascript
-                </p>
-                <p
-                  className={` bg-[#E9EFFF] rounded-[5px] px-[1.875rem] py-2 text-[#7D8488] text-[0.65rem] leading-[1rem]`}
-                >
-                  Javascript
-                </p>
+                {job?.requirements?.split(",")?.map((item: any) => {
+               return  ( <p
+                    key={item}
+                    className={`firstWord bg-[#E9EFFF] rounded-[5px] px-[1.875rem] py-2 text-[#7D8488] text-[0.65rem] leading-[1rem] `}
+                  >
+                    {item}
+                  </p>)
+                })}
               </div>
 
               <div className="gap-12 flex items-center justify-start">
-                <div
+                {/* <div
                   className={` text-[#515B60] text-xs font-medium flex gap-1 items-center`}
                 >
                   <img src="/images/location.svg" alt="" className="w-4" />
                   <p className="">Lagos</p>
-                </div>
+                </div> */}
                 <p className="text-[#515B60] text-xs font-medium">
-                  Deadline: <span className="font-normal">20th Dec, 2023</span>
+                  Date Posted: <span className="font-normal">{moment(job?.createdAt).format("Do MMM, YYYY")}</span>
                 </p>
               </div>
             </div>
           </div>
 
           <div className="text-right hidden md:block">
-            <p className="text-4xl">6</p>
+            <p className="text-4xl">{job?.applicants?.length}</p>
             <p className=" text-base">Applied Candidate</p>
           </div>
         </div>

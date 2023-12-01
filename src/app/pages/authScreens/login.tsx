@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ILogin } from "../../../interfaces/ILogin";
 import { login } from "../../services/authService";
 import { getRecruiter } from "../../services/jobs";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,6 +25,22 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await login(data);
+      if (res?.data?.success) {
+        getProfile();
+      } else if (!res?.data?.success) {
+        toast.error(res?.data?.message!);
+        setLoading(false);
+      }
+    } catch (e: any) {
+      toast.error(e?.response?.message!);
+      setLoading(false);
+    }
+  };
+
+  const getProfile = async () => {
+    setLoading(true);
+    try {
+      const res = await getRecruiter();
       if (res) {
         res && navigate("/dashboard");
         setLoading(false);
@@ -32,24 +49,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-   const getProfile = async () => {
-     setLoading(true);
-     try {
-       const res = await getRecruiter();
-     } catch (e) {
-       setLoading(false);
-     }
-   };
-
-  const loginProfile = async () => {
-    try {
-      const login = await handleLogin()
-      const profile = await getProfile()
-    }
-    catch (e) {
-    }
-  }
 
   return (
     <div className="flex font-lato gap-[5%] w-full max-w-[1440px] mx-auto">
@@ -61,7 +60,7 @@ const Login = () => {
                 src="/images/logo.svg"
                 alt=""
                 className="w-[100px] lg:w-[150px] xl:w-auto"
-              />{" "}
+              />
             </Link>
             <h3 className="font-bold  leading-[2rem] text-[1.75rem] text-[#2864FF] md:text-[#000] font-roboto mt-[50px]">
               Login
@@ -100,11 +99,11 @@ const Login = () => {
             />
 
             <button
-              onClick={loginProfile}
+              onClick={handleLogin}
               type="submit"
               className="bg-[#2864FF] text-[#fff] text-base w-full md:w-[400px] p-4 mt-[40px] mb-[20px] rounded-[8px] font-inter text-[1rem] font-medium "
             >
-              {loading ? "Loading" : "Login"}
+              {loading ? "Loading..." : "Login"}
             </button>
             <div className="relative text-center md:text-left">
               <img

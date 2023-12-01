@@ -6,7 +6,7 @@ import { TypeAnimation } from "react-type-animation";
 const Landing = () => {
   useEffect(() => {});
   return (
-    <PageLayout>
+    <PageLayout pageName="index">
       <div className="md:pt-[60px] pb-[100px] ">
         <div className="md:flex justify-between shadow-[0_6px_12px_0_rgba(171,190,209,0.3)] px-4  xl:px-[92px] pb-[50px]">
           <div className="w-full md:flex-1">

@@ -6,16 +6,21 @@ const InputWithAnimatedLabel = ({
   placeholder,
   name,
   onChange,
-    values,
+  values,
   type,
-    ...rest
+  ...rest
 }: any) => {
-
   return (
     <div className={`relative w-full `}>
       <p className="text-[#000]">{label}</p>
       <input
-        type={type === "number" ? "number" : "text"}
+        type={
+          type === "number"
+            ? "number"
+            : type === "password"
+            ? "password"
+            : "text"
+        }
         placeholder={`Enter ${placeholder}`}
         onChange={({ currentTarget }) => {
           onChange({ ...values, [name]: currentTarget.value });

@@ -15,12 +15,24 @@ const RecruiterJobs = () => {
   const [openJobs, setOpenJobs] = useState<any>([]);
   const [closedJobs, setClosedJobs] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
+  const [userData, setUserData] = useState<any>();
+
+  const user = JSON.parse(localStorage.getItem("recruitnUser")!);
+  useEffect(() => {
+    if (user) {
+      setUserData(user?.data?.user);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    getJob()
+  }, [])
+
   const getJob = async () => {
     setLoading(true);
     try {
-      const res = await companyJobs(
-        `6554e7bf654d92bff295f662?pageNumber=${page}`
-      );
+      const res = await companyJobs(page);
       setJobs(res.data.jobs);
       if (res.data.jobs) {
         const filterOpen = res.data.jobs.filter((item: any) => {
@@ -40,22 +52,18 @@ const RecruiterJobs = () => {
     }
   };
 
+  const reloadJob = (job: string) => {
+    if (job === "closedJob") {
+      setClosed(true);
+    } else {
+      getJob();
+    }
+  };
   const getId = (data: string) => {
     setJobId(data);
   };
 
-  const getProfile = async () => {
-    // setLoading(true);
-    try {
-      const res = await getRecruiter();
-    } catch (e) {
-      // setLoading(false);
-    }
-  };
-  useEffect(() => {
-    getJob();
-    getProfile();
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (closed) {
@@ -80,6 +88,8 @@ const RecruiterJobs = () => {
       setFiltered(findJob);
     }
   }, [jobId, openJobs, closedJobs]);
+
+  
 
   return (
     <RecuiterLayout>
@@ -152,7 +162,12 @@ const RecruiterJobs = () => {
                       jobId={getId}
                       pageName="recruiterJobs"
                     />
-                    <RecruitersJobDetails job={filtered} />
+                    <RecruitersJobDetails
+                      job={filtered}
+                      status="closed"
+                      company={userData?.companyName}
+                      reloadJob={reloadJob}
+                    />
                   </div>
                 )}
               </div>
@@ -169,14 +184,17 @@ const RecruiterJobs = () => {
                         />
                         <div className="">
                           <h3 className="text-[#102866] font-bold text-base md:text-[24px] md:leading-[28px]">
-                            Welcome, Consulting Ltd
+                            Welcome, {userData?.companyName}
                           </h3>
                           <p className="text-[#A8ADAF] text-xs lg-text font-bold mt-1 md:mt-2">
                             No job has been Posted yet
                           </p>
                           <p className="text-[#263238] text-xs md:text-sm mt-2">
                             You can go to{" "}
-                            <Link to="" className="text-[#2864FF]  underline">
+                            <Link
+                              to="/dashboard/create-job"
+                              className="text-[#2864FF]  underline"
+                            >
                               Add a Job
                             </Link>
                           </p>
@@ -190,7 +208,12 @@ const RecruiterJobs = () => {
                         jobId={getId}
                         pageName="recruiterJobs"
                       />
-                      <RecruitersJobDetails job={filtered} />
+                      <RecruitersJobDetails
+                        job={filtered}
+                        status="open"
+                        company={userData?.companyName}
+                        reloadJob={reloadJob}
+                      />
                     </div>
                   )}
                 </div>

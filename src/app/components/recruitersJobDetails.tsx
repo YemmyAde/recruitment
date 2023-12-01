@@ -1,17 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { closeJob, openJob } from "../services/jobs";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const RecruitersJobDetails: React.FC<{ pageName?: string, job:any }> = ({
-  pageName,
-  job
-}) => {
+const RecruitersJobDetails: React.FC<{
+  pageName?: string;
+  job: any;
+  status: string;
+  company: string;
+  reloadJob?: any;
+}> = ({ pageName, job, status, company, reloadJob }) => {
+  const [filteredJob, setFilteredJob] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-   const [filteredJob, setFilteredJob] = useState<any>();
-   useEffect(() => {
-     if (job) {
-       setFilteredJob(job[0]);
-     }
-   }, [job]);
-  
+  useEffect(() => {
+    if (job) {
+      setFilteredJob(job[0]);
+    }
+  }, [job]);
+
+  const handleOpenJob = async (id: string) => {
+    setLoading(true);
+    try {
+      const data = await openJob(id);
+      if (data) {
+        toast.success(data?.data?.message);
+        reloadJob("closeJob");
+      }
+    } catch (e) {
+      setLoading(false);
+      return e;
+    }
+  };
+  const handleCloseJob = async (id: string) => {
+    setLoading(true);
+
+    try {
+      const data = await closeJob(id);
+      if (data) {
+        reloadJob("closeJob");
+        toast.success(data?.data?.message);
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      return e;
+    }
+  };
   return (
     <div
       className={`w-full text-[#000]  flex-col  gap-y-10 font-roboto bg-[#fff] rounded-[20px] ${
@@ -71,12 +106,12 @@ const RecruitersJobDetails: React.FC<{ pageName?: string, job:any }> = ({
           </button>
         </div>
         <a
-          href="https./interview.ai.recruitn/7654366778fjfghkhkfxw35eryyoivxdggdffsygoyuiT
-          WFUFRTDKJWLywitrujbkjl/b/jobs"
+          href={`/jobs/${company}/${filteredJob?._id}`}
           target="_blank"
           className="text-[#2864FF] font-lato text-xs leading-[0.8125rem]"
         >
-          https./interview.ai.recruitn/7654366778fjfghkhkfxw35eryyoivxdggdffsygoyuiTWFUFRTDKJWLywitrujbkjl/b/jobs
+          {`/jobs/${company}/${filteredJob?._id}`}
+          {/* https./interview.ai.recruitn/7654366778fjfghkhkfxw35eryyoivxdggdffsygoyuiTWFUFRTDKJWLywitrujbkjl/b/jobs */}
         </a>
       </div>
 
@@ -91,11 +126,28 @@ const RecruitersJobDetails: React.FC<{ pageName?: string, job:any }> = ({
           <h3 className="text-8xl text-[#000] font-medium text-center my-6">
             {filteredJob && filteredJob.applicants.length}
           </h3>
-          <button className="text-[#2864FF]  underline">View all</button>
+          <Link
+            to={`/dashboard/job_result/${filteredJob?._id}`}
+            className="text-[#2864FF]  underline"
+          >
+            View all
+          </Link>
         </div>
-        <button className={`  text-[12px] font-roboto font-medium   `}>
-          Close Job
-        </button>
+        {status === "open" ? (
+          <button
+            onClick={() => handleCloseJob(filteredJob?._id)}
+            className={`  text-[12px] font-roboto font-medium   `}
+          >
+            {loading ? "Closing Job..." : "Close Job"}
+          </button>
+        ) : (
+          <button
+            onClick={() => handleOpenJob(filteredJob?._id)}
+            className={`  text-[12px] font-roboto font-medium   `}
+          >
+            {loading ? "Opening Job..." : "Open Job"}
+          </button>
+        )}
       </div>
     </div>
   );

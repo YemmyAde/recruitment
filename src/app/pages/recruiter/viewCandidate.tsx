@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import RecuiterLayout from "../../layout/recuiterLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ViewCandidate = () => {
+  const navigate = useNavigate()
   const [feedback, setFeedback] = useState<string>("application");
   return (
     <RecuiterLayout>
       <div className="px-4  xl:px-[92px] pt-6 pb-12 bg-[#f7f6f7] ">
-        <Link
-          to=""
+        <button
+         onClick={() => navigate(-1)}
           className="text-[#000] sm-text font-lato flex items-center gap-3 mt-4"
         >
           <img src="/images/back_arrow.svg" alt="" className="" /> Back
-        </Link>
+        </button>
 
         <div className="mt-16 between-flex flex-wrap gap-y-8">
           <div className="flex items-center gap-4 font-lato">

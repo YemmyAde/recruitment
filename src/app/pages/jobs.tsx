@@ -60,7 +60,7 @@ const Jobs = () => {
   }, [jobId]);
 
   return (
-    <PageLayout>
+    <PageLayout pageName="jobs">
       <div className="md:pt-[60px] pb-[100px] px-4  xl:px-[92px] min-h-[calc(100vh-120px)]">
         {/* Search */}
 
@@ -84,7 +84,7 @@ const Jobs = () => {
                 >
                   <input
                     type="text"
-                    className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-full"
+                    className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 flex-1"
                     placeholder="Search with Keyword or job title"
                     name="title"
                     value={search.title}
@@ -101,7 +101,7 @@ const Jobs = () => {
                       /> */}
                       <input
                         type="text"
-                        className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 w-[190px] hidden md:block"
+                        className="bg-[#f9fbff] placeholder:text-[#A8ADAF] sm-text rounded py-4 px-4 hidden md:block flex-1"
                         placeholder="Category"
                         name="category"
                         value={search.category}

@@ -1,7 +1,10 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+const PageLayout: React.FC<{ children: ReactNode; pageName: string }> = ({
+  children,
+  pageName,
+}) => {
   const [menu, setMenu] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState<number>();
   useEffect(() => {
@@ -53,25 +56,29 @@ const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           >
             <li className="flex items-center gap-4 md:hidden absolute right-0 -top-4">
               <button className="" onClick={toggleMenu}>
-                <img
-                  src="/images/close.png"
-                  alt=""
-                  className=" md:hidden"
-                />
+                <img src="/images/close.png" alt="" className=" md:hidden" />
               </button>
             </li>
             <li className="relative">
-              <a href="" className=" ">
+              <Link
+                to="/"
+                className={`${pageName === "index" && "text-[#2864FF] "} `}
+              >
                 Home
-              </a>
+              </Link>
+              {pageName === "index" && <div className="active"></div>}
             </li>
             <li className="relative">
-              <Link to="/jobs" className="text-[#2864FF] font-medium">
+              <Link
+                to="/jobs"
+                className={`${
+                  pageName === "jobs" && "text-[#2864FF] "
+                } font-medium`}
+              >
                 Jobs
               </Link>
-              <div className="h-[4px] w-[70px] bg-[#2864FF] rounded-[5px] absolute top-[70px] left-[-15px] invisible md:visible">
-                {" "}
-              </div>
+              {/* <div className="h-[4px] w-[70px] bg-[#2864FF] rounded-[5px] absolute top-[70px] left-[-15px] invisible md:visible"></div> */}
+              {pageName === "jobs" && <div className="active"></div>}
             </li>
             <li className="">
               <a href="" className="">

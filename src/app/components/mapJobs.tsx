@@ -18,7 +18,6 @@ const MapJobs: React.FC<{
     }
   }, [jobs]);
 
-  
   return (
     <div
       className={` between-flex text-[#000] flex-col w-full ${
@@ -131,7 +130,7 @@ const MapJobs: React.FC<{
                 <div
                   className={`${view ? "gap-6" : "gap-12"} flex items-center`}
                 >
-                  <div
+                  {/* <div
                     className={` text-[#515B60] text-xs md:text-base font-medium flex gap-2 items-center`}
                   >
                     <img
@@ -140,9 +139,9 @@ const MapJobs: React.FC<{
                       className="w-4 md:w-auto"
                     />
                     <p className="">{item.location}</p>
-                  </div>
+                  </div> */}
                   <p className="text-[#515B60] text-xs md:text-base font-medium">
-                    Deadline:{" "}
+                    Date Posted:
                     <span className="font-normal">
                       {moment(item.createdAt).format("Do MMM, YYYY")}
                     </span>

@@ -7,7 +7,9 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
 }) => {
   const [filteredJob, setFilteredJob] = useState<any>();
   useEffect(() => {
-    if (job) {
+    if (job && pageName === "singleJob") {
+      setFilteredJob(job);
+    } else if (job) {
       setFilteredJob(job[0]);
     }
   }, [job]);
@@ -155,7 +157,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
             className={` ${
               pageName === "singleJob"
                 ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
-                : "px-8  h-[40px]"
+                : "!px-8  py-3"
             } blue-button  `}
           >
             Apply
@@ -166,7 +168,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
             className={` ${
               pageName === "singleJob"
                 ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
-                : "px-8  h-[40px]"
+                : "px-8 py-3"
             }   bg-[rgba(40,100,255,0.5)] text-[#fff] rounded-[0.5rem] `}
           >
             Apply

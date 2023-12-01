@@ -25,13 +25,13 @@ export const AppRoute = () => {
       <Route path="/create-password" element={<CreatePassword />} />
       <Route path="/jobs" element={<Jobs />} />
       <Route path="/apply/:id" element={<Apply />} />
-      <Route path="/jobs/:id" element={<CompaniesJob />} />
+      <Route path="/jobs/:company/:id" element={<CompaniesJob />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<RecruiterJobs />} />
         <Route path="/dashboard/create-job" element={<CreateJob />} />
         <Route path="/dashboard/profile" element={<Profile />} />
-        <Route path="/dashboard/job_result" element={<JobResult />} />
-        <Route path="/dashboard/view_candidate" element={<ViewCandidate />} />
+        <Route path="/dashboard/job_result/:id" element={<JobResult />} />
+        <Route path="/dashboard/view_candidate/:id" element={<ViewCandidate />} />
       </Route>
     </Routes>
   );

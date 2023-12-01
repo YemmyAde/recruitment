@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../../services/authService";
 import { IRegister } from "../../../interfaces/IRegister";
-import { motion } from "framer-motion";
 import InputWithAnimatedLabel from "../../components/animatedInput";
+import { toast } from "react-toastify";
+import { getRecruiter } from "../../services/jobs";
 
 const SignUp = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-
 
   const [data, setData] = useState<IRegister>({
     firstName: "",
@@ -20,19 +20,35 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+
   const handleSignup = async () => {
     try {
       const res = await signUp(data);
+      if (res?.data?.success) {
+        getProfile();
+      } else if (!res?.data?.success) {
+        toast.error(res?.data?.message!);
+        setLoading(false);
+      }
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message);
+      return e;
+    }
+  };
+
+  const getProfile = async () => {
+    setLoading(true);
+    try {
+      const res = await getRecruiter();
       if (res) {
         res && navigate("/dashboard");
         setLoading(false);
       }
     } catch (e) {
-      return e
+      setLoading(false);
     }
   };
-  
- 
+
   return (
     <div className="flex font-lato gap-[5%] w-full max-w-[1440px] mx-auto">
       <div className="text-[#A8ADAF] mx-auto mt-[30px] px-4 md:px-0 md:w-[50%] pb-[50px] flex justify-center box-border">
@@ -64,7 +80,6 @@ const SignUp = () => {
           <div>
             <div className="flex justify-between gap-6">
               <InputWithAnimatedLabel
-                label="First Name"
                 name="firstName"
                 values={data}
                 onChange={setData}
@@ -74,7 +89,6 @@ const SignUp = () => {
               />
 
               <InputWithAnimatedLabel
-                label="Last Name"
                 name="lastName"
                 values={data}
                 onChange={setData}
@@ -83,7 +97,6 @@ const SignUp = () => {
               />
             </div>
             <InputWithAnimatedLabel
-              label="Email"
               name="email"
               values={data}
               onChange={setData}
@@ -93,7 +106,6 @@ const SignUp = () => {
             <InputWithAnimatedLabel
               type="text"
               className="form-input"
-              label="Company name"
               placeholder="Company name"
               name="companyName"
               onChange={setData}
@@ -102,25 +114,24 @@ const SignUp = () => {
             <InputWithAnimatedLabel
               type="number"
               className="form-input"
-              label="Number of employees"
               placeholder="Number of employees"
               name="numOfEmployees"
               onChange={setData}
               values={data}
+              min={0}
             />
             <InputWithAnimatedLabel
               type="number"
               className="form-input"
-              label="Phone number"
               placeholder="Phone number"
               name="phoneNumber"
               onChange={setData}
               values={data}
+              min={0}
             />
             <InputWithAnimatedLabel
               type="password"
               className="form-input"
-              label="Password"
               placeholder="Password"
               name="password"
               onChange={setData}
@@ -129,7 +140,6 @@ const SignUp = () => {
             <InputWithAnimatedLabel
               type="password"
               className="form-input"
-              label="Confirm Password"
               placeholder="Confirm Password"
               name="confirmPassword"
               onChange={setData}
@@ -145,8 +155,10 @@ const SignUp = () => {
               </p>
             </div>
             <button
-            onClick={handleSignup}  className="bg-[#2864FF] text-[#fff] text-base w-full md:w-[400px] p-4 mt-[40px] mb-[20px] rounded-[8px] font-inter text-[1rem] font-medium ">
-            
+              onClick={handleSignup}
+              className="bg-[#2864FF] text-[#fff] text-base w-full md:w-[400px] p-4 mt-[40px] mb-[20px] 
+              rounded-[8px] font-inter text-[1rem] font-medium "
+            >
               {loading ? "Loading" : "Sign Up"}
             </button>
             <div className="relative text-center md:text-left">

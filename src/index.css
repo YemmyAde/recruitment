@@ -76,6 +76,7 @@ input {
   height: 100vh;
   justify-content: space-between;
 }
+
 .firstWord:first-letter {
   text-transform: uppercase;
 }
@@ -114,4 +115,21 @@ input {
   transition: transform 0.2s ease-out, font-size 0.2s ease-out;
   z-index: 4;
   /* Include font-size in the transition */
+}
+
+.active {
+  height: 4px;
+  width: 70px;
+  background-color: #2864FF;
+  border-radius: 5px;
+  position: absolute;
+  top: 70px;
+  left: -10px;
+  visibility: hidden;
+}
+
+@media screen and (min-width: 768px) {
+  .active {
+    visibility: visible;
+  }
 }
