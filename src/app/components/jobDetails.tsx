@@ -77,20 +77,14 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
 
       <div className="bg-[#fff] rounded-[10px] pt-2 pb-8 p-4 shadow-[0px_4px_8px_0_rgba(171,190,209,0.4)] mb-4 md:mb-10">
         <p
-          className={` ${
-            pageName === "singleJob"
-              ? "text-base md:text-[31px] leading-[24px] md:leading-[48px] "
-              : "text-base md:md-text"
-          } bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
+          className={`text-base md:md-text bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
                    font-medium inline-block`}
         >
           Responsibilities
         </p>
 
         <ul
-          className={` ${
-            pageName === "singleJob" ? "job-text " : "sm-text"
-          } text-[#263238]  font-normal mt-2 font-lato text-justify list-disc pl-8 flex flex-col gap-4 `}
+          className={` sm-text text-[#263238]  font-normal mt-2 font-lato text-justify pl-8 flex flex-col gap-4 list-none `}
         >
           {filteredJob &&
             filteredJob.responsibility.split("\n").map((item: any) => {
@@ -105,20 +99,14 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
 
       <div className="bg-[#fff] rounded-[10px] pt-2 pb-8 p-4 shadow-[0px_4px_8px_0_rgba(171,190,209,0.4)] mb-4 md:mb-10">
         <p
-          className={` ${
-            pageName === "singleJob"
-              ? "text-base md:text-[31px] leading-[24px] md:leading-[48px] "
-              : "text-base md:md-text"
-          } bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
+          className={`text-base md:md-text  bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
                    font-medium inline-block`}
         >
           Requirements
         </p>
 
         <ul
-          className={` ${
-            pageName === "singleJob" ? "job-text " : "sm-text"
-          }  text-[#263238]  font-normal mt-2 font-lato text-justify list-disc pl-8 flex flex-col gap-4`}
+          className={`sm-text text-[#263238]  font-normal mt-2 font-lato text-justify list-disc pl-8 flex flex-col gap-4`}
         >
           {filteredJob &&
             filteredJob.requirements.split(",").map((item: any) => {
@@ -132,19 +120,13 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
       </div>
       <div className="bg-[#fff] rounded-[10px] pt-2 pb-8 p-4 shadow-[0px_4px_8px_0_rgba(171,190,209,0.4)] mb-10">
         <p
-          className={` ${
-            pageName === "singleJob"
-              ? "text-base md:text-[31px] leading-[24px] md:leading-[48px] "
-              : "text-base md:md-text"
-          } bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
+          className={` text-base md:md-text  bg-[#E9EFFF] rounded-[5px] px-3 md:px-[1.875rem] py-2 text-[#2864FF] mt-4 md:mt-0 w-auto
                    font-medium inline-block`}
         >
           Salary
         </p>
         <p
-          className={` ${
-            pageName === "singleJob" ? "job-text " : "sm-text"
-          } text-[#263238]   font-normal mt-2 font-lato text-justify `}
+          className={`sm-text  text-[#263238]   font-normal mt-2 font-lato text-justify `}
         >
           {filteredJob && filteredJob.salary}
         </p>
@@ -156,7 +138,7 @@ const JobDetails: React.FC<{ pageName?: string; job?: any }> = ({
             to={`/apply/${filteredJob._id}`}
             className={` ${
               pageName === "singleJob"
-                ? "px-12  h-[60px] text-[24px] font-roboto font-medium "
+                ? "px-12  !py-3 text-[24px] font-roboto font-medium "
                 : "!px-8  py-3"
             } blue-button  `}
           >

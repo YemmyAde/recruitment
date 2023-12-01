@@ -18,7 +18,6 @@ const JobResult = () => {
     try {
       const res = await getSingleJob(id!);
       setJob(res?.data?.job);
-      console.log(res);
     } catch (e) {
       return e;
     }
